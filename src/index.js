@@ -2,13 +2,6 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-const BoardStyle = {
-  backgroundColor: 'skyblue',
-  margin: 10,
-  padding: 10
-}
-
-
 const Square = (props) => {
   return (
     <button
@@ -23,22 +16,45 @@ const Square = (props) => {
 const Board = () => {
   const initialSquares = Array(9).fill(null);
   const [squares, setSquares] = useState(initialSquares)
+  const [xIsNext, setXIsNext] = useState(true)
   const handleClickeEvent = (i) => {
     const newSquare = [...squares];
-    newSquare[i]='X';
+
+    const winnerDeclared = Boolean(calculteTheWinner(newSquare))
+    const squareFilled = Boolean(newSquare[i]);
+
+    if(winnerDeclared || squareFilled){
+      return;
+    }
+
+    newSquare[i] = xIsNext ? 'X' : 'O';
     setSquares(newSquare)
+    setXIsNext(!xIsNext)
   }
   const renderSquare = (i) => {
     return (
       <Square
         value={squares[i]}
-        onClickEvent={()=>handleClickeEvent(i)}
+        onClickEvent={() => handleClickeEvent(i)}
       />
     )
   }
+
+  const reset = ()=>{
+    setSquares(initialSquares)
+    setXIsNext(true)
+  }
+
+  const winner = calculteTheWinner(squares);
+  const status = winner? `Winner is : ${winner}`: `Next player is: ${xIsNext ? 'X':'O'}`
   return (
-    <div style={BoardStyle}>
-      Board
+    <div >
+      <div className='status'>
+        <div>
+        {status}
+        </div>
+        <button onClick={()=> reset()} className='new-game'>New Game</button>
+      </div>
       <div className='board-row'>
         {renderSquare(0)}
         {renderSquare(1)}
@@ -61,7 +77,7 @@ const Board = () => {
 const Game = () => {
   return (
     <div className='game'>
-      Game
+      Tic-Tac-Toe
       <Board />
     </div>
   )
@@ -71,4 +87,19 @@ ReactDOM.render(
   <Game />,
   document.getElementById('root')
 )
+
+function calculteTheWinner(squares){
+  const lines=[
+    [0,1,2], [3,4,5], [6,7,8],//rows
+    [0,3,6], [1,4,7], [2,5,8],//columns
+    [0,4,8], [2,4,6]//diagonals
+  ]
+  for(let line of lines){
+    const [a,b,c]=line;
+    if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+      return squares[a];
+    }
+  }
+  return null;
+}
 
