@@ -46,7 +46,8 @@ const Board = () => {
   }
 
   const winner = calculteTheWinner(squares);
-  const status = winner? `Winner is : ${winner}`: `Next player is: ${xIsNext ? 'X':'O'}`
+  const draw = !squares.includes(null) && !winner;
+  const status = draw ? `Draw`: winner? `Winner is : ${winner}`: `Next player is: ${xIsNext ? 'X':'O'}`
   return (
     <div >
       <div className='status'>
