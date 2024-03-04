@@ -5,18 +5,18 @@ body {
   font: 32px "Century Gothic", Futura, sans-serif;
 }
 
-.game{
-  display:flex;
-  flex-direction:column;
+.game {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.board-row{
+.board-row {
   display: flex;
   flex-flow: row nowrap;
 }
 
-.square{
+.square {
   background-color: #444;
   color: #fff;
   border: 1px solid #999;
@@ -27,7 +27,7 @@ body {
   height: 100px;
 }
 
-.square:focus{
+.square:focus {
   outline: none;
   background-color: #222;
 }
@@ -39,11 +39,27 @@ body {
   justify-content: space-between;
 }
 
-.new-game{
-  margin:0 0 0 16px;
-  height:40px;
+.new-game {
+  margin: 0 0 0 16px;
+  height: 40px;
   border-radius: 5px;
-  color:#444;
+  color: #444;
   background-color: #fff;
   cursor: pointer;
+}
+
+.container-score {
+  display: flex;
+  margin-bottom: 24px;
+  justify-content: space-between;
+}
+
+.score {
+  border: 1px solid white;
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-radius:5px;
 }
